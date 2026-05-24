@@ -1,16 +1,37 @@
-# React + Vite
+# 🎮 Tic-Tac-Toe (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive, and beautifully styled Tic-Tac-Toe game built with **React** and **Vite**. This project features a sleek dark-themed UI with gradient text, glowing animations, and persistent score tracking for continuous gameplay.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* **Classic Gameplay:** Standard two-player Tic-Tac-Toe logic (Player X vs Player O).
+* **Score Tracking:** Keeps track of Player X wins, Player O wins, and total Draws across multiple rounds.
+* **Smart UI Indicators:** * Displays the current player's turn.
+  * Shows a preview marker on hover for empty squares.
+  * Highlights the winning combination when a game concludes.
+* **Game Controls:**
+  * **New Round:** Clears the board for the next game while preserving the current score.
+  * **Reset All:** Completely wipes the board and resets all scores back to zero.
+* **Modern Design:** Beautiful CSS-based animations, glassmorphism elements, and responsive layout.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Framework:** [React 19](https://react.dev/)
+* **Build Tool:** [Vite](https://vitejs.dev/)
+* **Styling:** Vanilla CSS3 (Custom properties, Flexbox/Grid, Animations)
+* **Linting:** ESLint
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Follow these instructions to get the project up and running on your local machine.
+
+### Prerequisites
+
+Make sure you have [Node.js](https://nodejs.org/) and npm installed on your computer.
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <https://github.com/Vishal33bisht/tic-tak-toe.git>
+   cd tic-tak-toe
