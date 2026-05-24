@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ── App Container ── */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 16px;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ── Title ── */
+.game-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from { filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.5)); }
+  to   { filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.8)); }
+}
+
+/* ── Score Board ── */
+.scoreboard {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.score-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 16px 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 16px;
+}
+
+.score-card.player-x::before {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), transparent);
+}
+
+.score-card.player-o::before {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), transparent);
+}
+
+.score-card.draws-card::before {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), transparent);
+}
+
+.score-card.active-player::before {
+  opacity: 1;
+}
+
+.score-card.active-player {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.score-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.score-player {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.score-card.player-x .score-player { color: #a78bfa; }
+.score-card.player-o .score-player { color: #34d399; }
+.score-card.draws-card .score-player { color: #fbbf24; }
+
+.score-value {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.score-card.player-x .score-value { color: #a78bfa; }
+.score-card.player-o .score-value { color: #34d399; }
+.score-card.draws-card .score-value { color: #fbbf24; }
+
+.active-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 8px auto 0;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.score-card.player-x .active-indicator { background: #a78bfa; }
+.score-card.player-o .active-indicator { background: #34d399; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* ── Game Status ── */
+.game-status {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.4s ease;
+  animation: statusFadeIn 0.3s ease;
+}
+
+@keyframes statusFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.game-status.status-playing {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.game-status.status-winner-X {
+  background: rgba(167, 139, 250, 0.15);
+  border-color: rgba(167, 139, 250, 0.5);
+  color: #a78bfa;
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
+}
+
+.game-status.status-winner-O {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.5);
+  color: #34d399;
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
+}
+
+.game-status.status-draw {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #fbbf24;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+}
+
+.status-emoji {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+/* ── Board ── */
+.board-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Square ── */
+.square {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.square::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 12px;
+}
+
+.square:hover:not(.disabled)::before {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.square:hover:not(.disabled) {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.03);
+}
+
+.square:active:not(.disabled) {
+  transform: scale(0.97);
+}
+
+.square.disabled {
+  cursor: not-allowed;
+}
+
+/* ── X Mark ── */
+.square.x-mark {
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(167, 139, 250, 0.08);
+  color: #a78bfa;
+  text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+  animation: markAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── O Mark ── */
+.square.o-mark {
+  border-color: rgba(52, 211, 153, 0.4);
+  background: rgba(52, 211, 153, 0.08);
+  color: #34d399;
+  text-shadow: 0 0 20px rgba(52, 211, 153, 0.6);
+  animation: markAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Winning Square ── */
+.square.winning-square.x-mark {
+  background: rgba(167, 139, 250, 0.25);
+  border-color: #a78bfa;
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.4), inset 0 0 20px rgba(167, 139, 250, 0.1);
+  animation: winPulse 0.8s ease-in-out infinite alternate;
+}
+
+.square.winning-square.o-mark {
+  background: rgba(52, 211, 153, 0.25);
+  border-color: #34d399;
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.4), inset 0 0 20px rgba(52, 211, 153, 0.1);
+  animation: winPulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes markAppear {
+  from { transform: scale(0) rotate(-10deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg);  opacity: 1; }
+}
+
+@keyframes winPulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
+}
+
+/* ── Preview on hover ── */
+.square.preview-x:not(.x-mark):not(.o-mark) {
+  color: rgba(167, 139, 250, 0.3);
+}
+
+.square.preview-o:not(.x-mark):not(.o-mark) {
+  color: rgba(52, 211, 153, 0.3);
+}
+
+/* ── Buttons ── */
+.button-group {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-reset {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  color: white;
+  box-shadow: 0 4px 15px rgba(167, 139, 250, 0.35);
+}
+
+.btn-reset:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(167, 139, 250, 0.5);
+}
+
+.btn-reset:active {
+  transform: translateY(0);
+}
+
+.btn-clear {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-clear:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-clear:active {
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 400px) {
+  .game-title {
+    font-size: 2rem;
+  }
+
+  .square {
+    font-size: 2.2rem;
+  }
+
+  .score-value {
+    font-size: 1.6rem;
+  }
+}
